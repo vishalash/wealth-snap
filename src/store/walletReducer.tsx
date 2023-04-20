@@ -1,5 +1,4 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
-import { authSlice } from "./authReducer";
 
 const initialState = {
   wallets: [
