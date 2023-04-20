@@ -7,9 +7,20 @@ import { Section } from '../layout/Section';
 import { NavbarTwoColumns } from '../navigation/NavbarTwoColumns';
 import { Logo } from './Logo';
 import { useSelector } from 'react-redux';
+import { useState, useCallback, useEffect } from 'react';
 
 const Hero = () => {
   const userDetail = useSelector((state: any) => state.auth);
+  const features:any = ["Modern", "Fastest", "Personalized", "Easiest"];
+  const [newName, setnewName] = useState("Modern");
+  const shuffle = useCallback(() => {
+    const index = Math.floor(Math.random() * features.length);
+    setnewName(features[index]);
+}, []);
+useEffect(() => {
+  const intervalID = setInterval(shuffle, 5000);
+  return () => clearInterval(intervalID);
+}, [shuffle])
   return (
     <Background color="bg-gray-100">
       <Section yPadding="py-6">
@@ -26,7 +37,7 @@ const Hero = () => {
         <HeroOneButton
           title={
             <>
-              {'Modern personal finance app for\n'}
+              {newName + ' personal finance app for\n'}
               <span className="text-primary-500">{userDetail.isLogin ? userDetail.userInfo.name : 'You'}!</span>
             </>
           }
