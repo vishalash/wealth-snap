@@ -22,4 +22,16 @@ export const authSlice = createSlice({
 
 export const { login, logout } = authSlice.actions;
 
+export const authMiddleware = (store:any) => (next:any) => (action:any) => {
+  if (authSlice.actions.login.match(action)) {
+    // Note: localStorage expects a string
+    localStorage.setItem('isAuthenticated', 'true');
+    localStorage.setItem('userName', action.payload);
+  } else if (authSlice.actions.logout.match(action)) {
+    localStorage.setItem('isAuthenticated', 'false');
+    localStorage.removeItem('userName');
+  }
+  return next(action);
+};
+
 export default authSlice.reducer;

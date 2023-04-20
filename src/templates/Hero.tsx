@@ -6,30 +6,41 @@ import { HeroOneButton } from '../hero/HeroOneButton';
 import { Section } from '../layout/Section';
 import { NavbarTwoColumns } from '../navigation/NavbarTwoColumns';
 import { Logo } from './Logo';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState, useCallback, useEffect } from 'react';
+import login from '../login';
+import { logout } from '../store/authReducer';
 
 const Hero = () => {
   const userDetail = useSelector((state: any) => state.auth);
-  const features:any = ["Modern", "Fastest", "Personalized", "Easiest"];
+  const features: any = ["Modern", "Fastest", "Personalized", "Easiest"];
   const [newName, setnewName] = useState("Modern");
   const shuffle = useCallback(() => {
     const index = Math.floor(Math.random() * features.length);
     setnewName(features[index]);
-}, []);
-useEffect(() => {
-  const intervalID = setInterval(shuffle, 5000);
-  return () => clearInterval(intervalID);
-}, [shuffle])
+  }, []);
+  useEffect(() => {
+    const intervalID = setInterval(shuffle, 5000);
+    return () => clearInterval(intervalID);
+  }, [shuffle]);
+  const dispatch = useDispatch();
+  const onLogoutHandler = () => {
+    dispatch(logout());
+  }
   return (
     <Background color="bg-gray-100">
       <Section yPadding="py-6">
         <NavbarTwoColumns logo={<Logo xl />}>
           <li>
-            <Link href="/login">
+            <Link href="/dashboard">
               <span>Dashboard</span>
             </Link>
           </li>
+          {userDetail.isLogin && <li>
+            <Link href={''}>
+              <span onClick={onLogoutHandler}>Logout</span>
+            </Link>
+          </li>}
         </NavbarTwoColumns>
       </Section>
 
@@ -43,7 +54,7 @@ useEffect(() => {
           }
           description="The easiest way to keep track of your net worth"
           button={
-            <Link href="/login">
+            <Link href="/dashboard">
               <span>
                 <Button xl>Click here to start</Button>
               </span>

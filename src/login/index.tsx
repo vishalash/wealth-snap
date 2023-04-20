@@ -1,23 +1,19 @@
-import Head from 'next/head';
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { login } from '../../store/authReducer';
-import { useRouter } from 'next/router'
+import { login } from '../store/authReducer';
 
 const Login = () => {
   const nameRef = useRef<HTMLInputElement | any>();
   const dispatch = useDispatch();
-  const router = useRouter();
   const onNextHandler = (event: any) => {
     event.preventDefault();
     dispatch(login(nameRef.current.value));
-    router.push('/');
+  }
+  if(typeof window !== 'undefined' && localStorage.getItem('isAuthenticated') == 'true'){
+    dispatch(login(localStorage.getItem('userName')));
   }
   return (
-    <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
-      <Head>
-        <title>Login</title>
-      </Head>
+    <div className="bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
       <div className="relative py-3 sm:max-w-xl sm:mx-auto">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-light-blue-500 shadow-lg transform skew-y-0 rotate-6 sm:rotate-12 sm:rounded-3xl"></div>
         <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
