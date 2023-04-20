@@ -8,7 +8,6 @@ import { NavbarTwoColumns } from '../navigation/NavbarTwoColumns';
 import { Logo } from './Logo';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useCallback, useEffect } from 'react';
-import login from '../login';
 import { logout } from '../store/authReducer';
 
 const Hero = () => {
