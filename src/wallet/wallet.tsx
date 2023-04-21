@@ -3,8 +3,8 @@ import Image from 'next/image';
 import { format } from 'date-fns';
 import AddWalletForm from "./addWallet";
 import AddExpenseForm from "./addExpense";
-import { useState } from "react";
-import { addAllWallet } from "../store/walletReducer";
+import { useEffect, useState } from "react";
+import { addAllWallet, removeWallet } from "../store/walletReducer";
 import AddExpenseTotalForm from "./addExpenseTotal";
 
 const Wallet = () => {
@@ -35,23 +35,43 @@ const Wallet = () => {
     setIsFormOpen(!isFormOpen);
   };
 
-  if(typeof window !== 'undefined'){
-    let exisitingWallets:any = localStorage.getItem('walletInfo');
-    if(allWallets.length === 0 && exisitingWallets){
-      exisitingWallets = JSON.parse(exisitingWallets);
-      if(exisitingWallets?.length > 0){
-        dispatch(addAllWallet(exisitingWallets));
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      let exisitingWallets: any = localStorage.getItem('walletInfo');
+      if (allWallets.length === 0 && exisitingWallets) {
+        exisitingWallets = JSON.parse(exisitingWallets);
+        if (exisitingWallets?.length > 0) {
+          dispatch(addAllWallet(exisitingWallets));
+        }
       }
     }
-    localStorage.setItem('walletInfo', JSON.stringify(allWallets));
-  }
+  }, [])
 
-  const getWalletTotal = (wallet:any) => {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('walletInfo', JSON.stringify(allWallets));
+    }
+  })
+
+  const getWalletTotal = (wallet: any) => {
     let totalSum = 0;
     totalSum = wallet.expenses.reduce((total: any, expense: any) => {
       return expense.type === 'debit' ? (total - +expense.amount) : (total + +expense.amount);
     }, 0);
     return totalSum;
+  }
+
+  let totalNetWorth = 0;
+  allWallets.forEach((wallet: any) => {
+    let totalSum = 0;
+    totalSum += wallet.expenses.reduce((total: any, expense: any) => {
+      return expense.type === 'debit' ? (total - +expense.amount) : (total + +expense.amount);
+    }, 0);
+    totalNetWorth += totalSum;
+  });
+
+  const deleteWalletHandler = (walletId: any) => {
+    dispatch(removeWallet(walletId));
   }
 
   return (
@@ -76,10 +96,20 @@ const Wallet = () => {
           )}
         </div>
       </div>
+
+      <div className="mt-4 ml-4 inline-flex items-center bg-green-500 text-white text-xl font-bold py-2 px-4 rounded-lg">
+        Total Net Worth: ${totalNetWorth}
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 py-8 px-4 md:px-12" style={{ backgroundColor: '#F4F9FF' }}>
         {allWallets.map((wallet: any) => (
           <div key={wallet.id} className="bg-white rounded-lg overflow-hidden shadow-md">
             <div className="flex items-center bg-gray-200 p-3">
+              <button title="Delete Wallet" className="mr-2 top-0 left-0 bg-red-500 hover:bg-red-700 rounded-full" onClick={() => deleteWalletHandler(wallet.id)}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
               <div className="rounded-full h-12 w-12 overflow-hidden">
                 <Image
                   src={wallet.logo}
