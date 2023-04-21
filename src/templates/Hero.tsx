@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { logout } from '../store/authReducer';
 
-const Hero = (props:any) => {
+const Hero = () => {
   const userDetail = useSelector((state: any) => state.auth);
   const features: any = ["Modern", "Fastest", "Personalized"];
   const [newName, setnewName] = useState("Modern");
