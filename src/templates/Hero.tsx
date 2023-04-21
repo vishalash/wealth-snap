@@ -13,7 +13,7 @@ import { logout } from '../store/authReducer';
 const Hero = () => {
   const userDetail = useSelector((state: any) => state.auth);
   // const features: any = ["Modern", "Fastest", "Personalized"];
-  const [newName, setnewName] = useState("Modern");
+  const newName = useState("Modern")[0];
   // const shuffle = useCallback(() => {
   //   const index = Math.floor(Math.random() * features.length);
   //   setnewName(features[index]);
