@@ -10,6 +10,7 @@ import { NavbarTwoColumns } from "../../navigation/NavbarTwoColumns";
 import { Logo } from "../../templates/Logo";
 import Wallet from "../../wallet/wallet";
 import { logout } from "../../store/authReducer";
+import { removeAllWallet } from "../../store/walletReducer";
 
 const Dashboard = () => {
   const userDetail = useSelector((state: any) => state.auth);
@@ -22,6 +23,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const onLogoutHandler = () => {
     dispatch(logout());
+    dispatch(removeAllWallet());
   }
   return (
     <div className="antialiased text-gray-600">

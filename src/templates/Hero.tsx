@@ -9,6 +9,7 @@ import { Logo } from './Logo';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { logout } from '../store/authReducer';
+import { removeAllWallet } from '../store/walletReducer';
 
 const Hero = () => {
   const userDetail = useSelector((state: any) => state.auth);
@@ -25,6 +26,7 @@ const Hero = () => {
   const dispatch = useDispatch();
   const onLogoutHandler = () => {
     dispatch(logout());
+    dispatch(removeAllWallet());
   }
   return (
     <Background color="bg-gray-100">
