@@ -30,6 +30,7 @@ export const authMiddleware = () => (next:any) => (action:any) => {
   } else if (authSlice.actions.logout.match(action)) {
     localStorage.setItem('isAuthenticated', 'false');
     localStorage.removeItem('userName');
+    localStorage.removeItem('walletInfo');
   }
   return next(action);
 };

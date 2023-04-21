@@ -7,21 +7,21 @@ import { Section } from '../layout/Section';
 import { NavbarTwoColumns } from '../navigation/NavbarTwoColumns';
 import { Logo } from './Logo';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, useCallback, useEffect } from 'react';
+import { useState } from 'react';
 import { logout } from '../store/authReducer';
 
-const Hero = () => {
+const Hero = (props:any) => {
   const userDetail = useSelector((state: any) => state.auth);
-  const features: any = ["Modern", "Fastest", "Personalized", "Easiest"];
+  const features: any = ["Modern", "Fastest", "Personalized"];
   const [newName, setnewName] = useState("Modern");
-  const shuffle = useCallback(() => {
-    const index = Math.floor(Math.random() * features.length);
-    setnewName(features[index]);
-  }, []);
-  useEffect(() => {
-    const intervalID = setInterval(shuffle, 5000);
-    return () => clearInterval(intervalID);
-  }, [shuffle]);
+  // const shuffle = useCallback(() => {
+  //   const index = Math.floor(Math.random() * features.length);
+  //   setnewName(features[index]);
+  // }, []);
+  // useEffect(() => {
+  //   const intervalID = setInterval(shuffle, 5000);
+  //   return () => clearInterval(intervalID);
+  // }, [shuffle]);
   const dispatch = useDispatch();
   const onLogoutHandler = () => {
     dispatch(logout());

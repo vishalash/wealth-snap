@@ -48,7 +48,7 @@ function AddExpenseForm({ walletId, onClose }: any) {
               id="amount"
               name="amount"
               min="0"
-              step="0.01"
+              step="1"
               value={expense.amount}
               onChange={handleInputChange}
               className="border border-gray-300 rounded-md py-2 px-3 w-full"

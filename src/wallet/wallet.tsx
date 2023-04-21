@@ -1,14 +1,18 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Image from 'next/image';
 import { format } from 'date-fns';
 import AddWalletForm from "./addWallet";
 import AddExpenseForm from "./addExpense";
 import { useState } from "react";
+import { addAllWallet } from "../store/walletReducer";
+import AddExpenseTotalForm from "./addExpenseTotal";
 
 const Wallet = () => {
   const allWallets = useSelector((state: any) => state.wallet.wallets);
   const [showAddExpense, setAddExpense] = useState(false);
+  const [showAddExpenseTotal, setAddExpenseTotal] = useState(false);
   const [walletToEdit, setWalletToEdit] = useState();
+  const dispatch = useDispatch();
   const addExpenseHandler = (id: any) => {
     setWalletToEdit(id);
     setAddExpense(true);
@@ -17,15 +21,43 @@ const Wallet = () => {
     setAddExpense(false);
   }
 
+  const addExpenseTotalHandler = (id: any) => {
+    setWalletToEdit(id);
+    setAddExpenseTotal(true);
+  }
+  const closeAddExpenseTotal = () => {
+    setAddExpenseTotal(false);
+  }
+
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   const toggleForm = () => {
     setIsFormOpen(!isFormOpen);
   };
 
+  if(typeof window !== 'undefined'){
+    let exisitingWallets:any = localStorage.getItem('walletInfo');
+    if(allWallets.length === 0 && exisitingWallets){
+      exisitingWallets = JSON.parse(exisitingWallets);
+      if(exisitingWallets?.length > 0){
+        dispatch(addAllWallet(exisitingWallets));
+      }
+    }
+    localStorage.setItem('walletInfo', JSON.stringify(allWallets));
+  }
+
+  const getWalletTotal = (wallet:any) => {
+    let totalSum = 0;
+    totalSum = wallet.expenses.reduce((total: any, expense: any) => {
+      return expense.type === 'debit' ? (total - +expense.amount) : (total + +expense.amount);
+    }, 0);
+    return totalSum;
+  }
+
   return (
     <>
       {showAddExpense && <AddExpenseForm onClose={closeAddExpense} walletId={walletToEdit} />}
+      {showAddExpenseTotal && <AddExpenseTotalForm onClose={closeAddExpenseTotal} walletId={walletToEdit} />}
       <div className="container mx-auto px-4">
         <div className="bg-white rounded-lg shadow-lg p-6">
           <div className="flex justify-between items-center mb-4">
@@ -63,11 +95,9 @@ const Wallet = () => {
               <div className="flex justify-between items-center">
                 <p className="text-sm font-semibold text-gray-600">{wallet.type}</p>
                 <p className={`text-lg font-bold ${wallet.expenses.reduce((total: any, expense: any) => {
-                  return expense.type === 'debit' ? total - expense.amount : total + expense.amount;
+                  return expense.type === 'debit' ? total - +expense.amount : total + +expense.amount;
                 }, 0) >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                  {wallet.expenses.reduce((total: any, expense: any) => {
-                    return expense.type === 'debit' ? total - expense.amount : total + expense.amount;
-                  }, 0)}</p>
+                  {getWalletTotal(wallet)}</p>
               </div>
               <ul className="mt-4 space-y-2">
                 {wallet.expenses.map((expense: any) => (
@@ -87,6 +117,10 @@ const Wallet = () => {
               </ul>
               <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => addExpenseHandler(wallet.id)}>
                 Add Expense
+              </button>
+
+              <button className="ml-4 mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => addExpenseTotalHandler(wallet.id)}>
+                Add Current Total
               </button>
             </div>
           </div>
