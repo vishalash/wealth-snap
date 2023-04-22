@@ -7,7 +7,7 @@ import WalletCard from "./WalletCard";
 const Wallet = () => {
   const allWallets = useSelector((state: any) => state.wallet.wallets);
   const dispatch = useDispatch();
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(allWallets.length === 0);
   const toggleForm = () => {
     setIsFormOpen(!isFormOpen);
   };
@@ -18,6 +18,7 @@ const Wallet = () => {
         exisitingWallets = JSON.parse(exisitingWallets);
         if (exisitingWallets?.length > 0) {
           dispatch(addAllWallet(exisitingWallets));
+          setIsFormOpen(false);
         }
       }
     }
@@ -57,9 +58,13 @@ const Wallet = () => {
           )}
         </div>
       </div>
-      <div className="mt-4 ml-4 inline-flex items-center bg-green-500 text-white text-xl font-bold py-2 px-4 rounded-lg">
-        Total Net Worth: ${totalNetWorth}
+      <div className="container mx-auto px-4 mt-4">
+        <div className="flex flex-wrap gap-2">
+          <span className="bg-green-200 px-2 py-1 rounded text-gray-800">Total Net Worth: ${totalNetWorth}</span>
+        </div>
+
       </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 py-8 px-4 md:px-12" style={{ backgroundColor: '#F4F9FF' }}>
         {allWallets.map((wallet: any) => (
           <WalletCard key={wallet.id} wallet={wallet} />

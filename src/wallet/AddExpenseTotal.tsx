@@ -18,7 +18,7 @@ function AddExpenseTotalForm({ walletId, onClose }: any) {
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
+    <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-20">
       <div className="bg-white rounded-md w-full max-w-md mx-4 p-6">
         <h2 className="text-lg font-medium mb-4">Enter current total amount in this wallet</h2>
         <form onSubmit={handleSubmit}>

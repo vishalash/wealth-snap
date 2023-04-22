@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { Background } from '../background/Background';
-import { Button } from '../button/Button';
+import { StyleButton } from '../button/StyleButton';
 import { HeroOneButton } from '../hero/HeroOneButton';
 import { Section } from '../layout/Section';
 import { NavbarTwoColumns } from '../navigation/NavbarTwoColumns';
@@ -57,7 +57,7 @@ const Hero = () => {
           button={
             <Link href="/dashboard">
               <span>
-                <Button xl>Click here to start</Button>
+                <StyleButton>Click here to start</StyleButton>
               </span>
             </Link>
           }

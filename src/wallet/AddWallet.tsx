@@ -67,7 +67,7 @@ const AddWalletForm = (props: any) => {
           onChange={handleChange}
         />
       </div>
-      <div className="mb-4">
+      <div className="mb-4 hidden">
         <label htmlFor="logo" className="block font-medium mb-1">
           Wallet Logo URL
         </label>
