@@ -8,9 +8,9 @@ import { Background } from "../../background/Background";
 import { Section } from "../../layout/Section";
 import { NavbarTwoColumns } from "../../navigation/NavbarTwoColumns";
 import { Logo } from "../../templates/Logo";
-import Wallet from "../../wallet/Wallet";
 import { logout } from "../../store/authReducer";
 import { removeAllWallet } from "../../store/walletReducer";
+import Wallet from "../../wallet/Wallet";
 
 const Dashboard = () => {
   const userDetail = useSelector((state: any) => state.auth);
