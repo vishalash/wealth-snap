@@ -5,7 +5,7 @@ import { addExpense } from '../store/walletReducer';
 import { format } from 'date-fns';
 
 function AddExpenseForm({ walletId, onClose }: any) {
-  const [expense, setExpense] = useState({ date: format(new Date(), 'yyyy-MM-dd'), amount: '', type: 'credit' });
+  const [expense, setExpense] = useState({ date: format(new Date(), 'yyyy-MM-dd\'T\'HH:mm:ss'), amount: '', type: 'credit' });
   const dispatch = useDispatch();
 
   const handleInputChange = (e: any) => {
@@ -14,7 +14,7 @@ function AddExpenseForm({ walletId, onClose }: any) {
   };
 
   const handleSubmit = (e: any) => {
-    e.preventDefault();
+    e.preventDefault(); 
     const newExpense = { id: nanoid(), ...expense };
     dispatch(addExpense({ walletId, expense: newExpense }));
     onClose();
@@ -30,7 +30,7 @@ function AddExpenseForm({ walletId, onClose }: any) {
               Date
             </label>
             <input
-              type="date"
+              type="datetime-local"
               id="date"
               name="date"
               value={expense.date}

@@ -43,7 +43,7 @@ const walletSlice = createSlice({
     addCurrentValue(state: any, action) {
       const { walletId, amount } = action.payload;
       let expense = {
-        id: nanoid(), type: 'debit', date: format(new Date(), 'yyyy-MM-dd'), amount: 0
+        id: nanoid(), type: 'debit', date: format(new Date(), 'yyyy-MM-dd\'T\'HH:mm:ss'), amount: 0
       };
       const wallet = state.wallets.find((wallet: any) => wallet.id === walletId);
       if (wallet) {

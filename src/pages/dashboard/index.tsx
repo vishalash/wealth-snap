@@ -8,7 +8,7 @@ import { Background } from "../../background/Background";
 import { Section } from "../../layout/Section";
 import { NavbarTwoColumns } from "../../navigation/NavbarTwoColumns";
 import { Logo } from "../../templates/Logo";
-import Wallet from "../../wallet/wallet";
+import Wallet from "../../wallet/Wallet";
 import { logout } from "../../store/authReducer";
 import { removeAllWallet } from "../../store/walletReducer";
 
