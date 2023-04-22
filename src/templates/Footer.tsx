@@ -54,19 +54,9 @@ const Footer = () => (
           </>
         }
       >
-        <li>
-          <Link href="/">
-            <span>Home</span>
-          </Link>
-        </li>
-        <li>
-          <Link href="/">
-            <span>About</span>
-          </Link>
-        </li>
-        <li>
-          <Link href="/">
-            <span>Docs</span>
+        <li className='underline'>
+          <Link target='_blank' href="https://wealthsnap.canny.io/">
+            <span>Feature Request</span>
           </Link>
         </li>
       </CenteredFooter>
