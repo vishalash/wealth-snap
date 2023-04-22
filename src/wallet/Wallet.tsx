@@ -41,8 +41,8 @@ const Wallet = () => {
   return (
     <>
       <div className="container mx-auto px-4">
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <div className="flex justify-between items-center mb-4">
+        <div className="bg-white rounded-lg shadow-sm p-5">
+          <div className="flex justify-between items-center">
             <h2 className="text-xl font-semibold">Add a new wallet</h2>
             <button
               className="bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400"
@@ -60,6 +60,9 @@ const Wallet = () => {
       </div>
       <div className="container mx-auto px-4 mt-4">
         <div className="flex flex-wrap gap-2">
+          {allWallets.length === 0 && <span className="bg-blue-200 px-2 py-1 rounded text-gray-800">Add a new wallet to start!</span>}
+          {allWallets.length !== 0 &&
+            totalNetWorth === 0 && <span className="bg-blue-200 px-2 py-1 rounded text-gray-800 shadow-sm">Add expenses or set current amount in walelts!</span>}
           <span className="bg-green-200 px-2 py-1 rounded text-gray-800">Total Net Worth: ${totalNetWorth}</span>
         </div>
 

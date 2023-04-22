@@ -6,15 +6,14 @@ import { HeroOneButton } from '../hero/HeroOneButton';
 import { Section } from '../layout/Section';
 import { NavbarTwoColumns } from '../navigation/NavbarTwoColumns';
 import { Logo } from './Logo';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useState } from 'react';
-import { logout } from '../store/authReducer';
-import { removeAllWallet } from '../store/walletReducer';
+import Logout from '../logout/Logout';
 
 const Hero = () => {
   const userDetail = useSelector((state: any) => state.auth);
   // const features: any = ["Modern", "Fastest", "Personalized"];
-  const newName = useState("Modern")[0];
+  const newName = useState("Minimal")[0];
   // const shuffle = useCallback(() => {
   //   const index = Math.floor(Math.random() * features.length);
   //   setnewName(features[index]);
@@ -23,11 +22,6 @@ const Hero = () => {
   //   const intervalID = setInterval(shuffle, 5000);
   //   return () => clearInterval(intervalID);
   // }, [shuffle]);
-  const dispatch = useDispatch();
-  const onLogoutHandler = () => {
-    dispatch(logout());
-    dispatch(removeAllWallet());
-  }
   return (
     <Background color="bg-gray-100">
       <Section yPadding="py-6">
@@ -38,9 +32,7 @@ const Hero = () => {
             </Link>
           </li>
           {userDetail.isLogin && <li>
-            <Link href={''}>
-              <span onClick={onLogoutHandler}>Logout</span>
-            </Link>
+            <Logout />
           </li>}
         </NavbarTwoColumns>
       </Section>

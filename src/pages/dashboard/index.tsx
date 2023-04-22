@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Meta } from "../../layout/Meta";
 import { Footer } from "../../templates/Footer";
 import { AppConfig } from "../../utils/AppConfig";
@@ -8,9 +8,8 @@ import { Background } from "../../background/Background";
 import { Section } from "../../layout/Section";
 import { NavbarTwoColumns } from "../../navigation/NavbarTwoColumns";
 import { Logo } from "../../templates/Logo";
-import { logout } from "../../store/authReducer";
-import { removeAllWallet } from "../../store/walletReducer";
 import Wallet from "../../wallet/Wallet";
+import Logout from "../../logout/Logout";
 
 const Dashboard = () => {
   const userDetail = useSelector((state: any) => state.auth);
@@ -19,11 +18,6 @@ const Dashboard = () => {
     dashBoardUI = <Wallet />
   } else {
     dashBoardUI = <Login />;
-  }
-  const dispatch = useDispatch();
-  const onLogoutHandler = () => {
-    dispatch(logout());
-    dispatch(removeAllWallet());
   }
   return (
     <div className="antialiased text-gray-600">
@@ -37,9 +31,7 @@ const Dashboard = () => {
               </Link>
             </li>
             {userDetail.isLogin && <li>
-              <Link href={''}>
-                <span onClick={onLogoutHandler}>Logout</span>
-              </Link>
+              <Logout />
             </li>}
           </NavbarTwoColumns>
         </Section>
