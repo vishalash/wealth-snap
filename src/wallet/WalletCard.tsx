@@ -80,7 +80,7 @@ const WalletCard = (props: any) => {
           </MoneyButton>
 
           <MoneyButton onClick={() => addExpenseTotalHandler(wallet.id)}>
-            Add Current Total
+            Set Total
           </MoneyButton>
         </div>
       </div>
