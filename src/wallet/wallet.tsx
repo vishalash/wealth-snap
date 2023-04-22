@@ -22,7 +22,6 @@ const Wallet = () => {
       }
     }
   }, [])
-
   useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('walletInfo', JSON.stringify(allWallets));
