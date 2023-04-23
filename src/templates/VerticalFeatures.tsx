@@ -8,7 +8,7 @@ const VerticalFeatures = () => (
   >
     <VerticalFeatureRow
       title="Expense Manager"
-      description="We include the most simple and optional expense tracker, unlike other app where you have to track app your expenses, we make it optional to keep track of your net worth easily."
+      description="We include the most simple and optional expense tracker, unlike other app where you have to track all your expenses to see your net worth, we make it optional to keep track of your net worth easily."
       image="/assets/images/feature.svg"
       imageAlt="First feature alt text"
     />
