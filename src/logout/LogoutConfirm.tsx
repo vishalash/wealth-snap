@@ -12,7 +12,7 @@ function LogoutConfirm({ onClose }: any) {
     downloadData.userDetail = userDetail;
     const json = JSON.stringify(downloadData);
     const blob = new Blob([json], { type: 'application/json' });
-    saveAs(blob, 'walletsnap ' + format(new Date(), 'PPpp') + '.json');
+    saveAs(blob, 'WealthSnap ' + format(new Date(), 'PPpp') + '.json');
   }
 
   return (
