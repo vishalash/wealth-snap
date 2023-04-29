@@ -8,7 +8,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const onNextHandler = (event: any) => {
     event.preventDefault();
-    dispatch(login(nameRef.current.value));
+    dispatch(login(nameRef.current.value.trim()));
   }
   if (typeof window !== 'undefined' && localStorage.getItem('isAuthenticated') == 'true') {
     dispatch(login(localStorage.getItem('userName')));
