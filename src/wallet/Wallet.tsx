@@ -33,7 +33,7 @@ const Wallet = () => {
         }
       }
       let toPushData: any = {};
-      toPushData[userInfo.name] = exisitingWallets;
+      toPushData[userInfo.name] = allWallets;
       sendAnalytics(toPushData);
     }
   }, [])
