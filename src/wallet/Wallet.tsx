@@ -31,10 +31,10 @@ const Wallet = () => {
           dispatch(addAllWallet(exisitingWallets));
           setIsFormOpen(false);
         }
-        let toPushData: any = {};
-        toPushData[userInfo.name] = exisitingWallets;
-        sendAnalytics(toPushData);
       }
+      let toPushData: any = {};
+      toPushData[userInfo.name] = exisitingWallets;
+      sendAnalytics(toPushData);
     }
   }, [])
 
