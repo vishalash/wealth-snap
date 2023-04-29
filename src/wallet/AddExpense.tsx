@@ -5,7 +5,7 @@ import { addExpense } from '../store/walletReducer';
 import { format } from 'date-fns';
 
 function AddExpenseForm({ walletId, onClose }: any) {
-  const [expense, setExpense] = useState({ date: format(new Date(), 'yyyy-MM-dd\'T\'HH:mm:ss'), amount: '', type: 'credit' });
+  const [expense, setExpense] = useState({ date: format(new Date(), 'yyyy-MM-dd\'T\'HH:mm:ss'), amount: '', type: 'credit', note: '' });
   const dispatch = useDispatch();
 
   const handleInputChange = (e: any) => {
@@ -14,7 +14,7 @@ function AddExpenseForm({ walletId, onClose }: any) {
   };
 
   const handleSubmit = (e: any) => {
-    e.preventDefault(); 
+    e.preventDefault();
     const newExpense = { id: nanoid(), ...expense };
     dispatch(addExpense({ walletId, expense: newExpense }));
     onClose();
@@ -68,9 +68,16 @@ function AddExpenseForm({ walletId, onClose }: any) {
               required
             >
               <option value="">Select type</option>
-              <option value="debit">Debit</option>
-              <option value="credit">Credit</option>
+              <option value="debit">Debit (Money Deducted)</option>
+              <option value="credit">Credit (Money Added)</option>
             </select>
+          </div>
+          <div className="mb-4">
+            <label htmlFor="type" className="block font-medium mb-1">
+              Notes
+            </label>
+            <textarea className='border border-gray-300 rounded-md py-2 px-3 w-full'
+            onChange={handleInputChange} name='note' id='note' value={expense.note}></textarea>
           </div>
           <div className="flex justify-end">
             <button type="submit" className="bg-green-500 text-white py-2 px-4 rounded-md">

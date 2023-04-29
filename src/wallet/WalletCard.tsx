@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { removeWallet } from "../store/walletReducer";
+import { removeExpense, removeWallet } from "../store/walletReducer";
 import { useDispatch } from "react-redux";
 import Image from "next/image";
 import AddExpenseForm from "./AddExpense";
@@ -29,6 +29,11 @@ const WalletCard = (props: any) => {
     setWalletToEdit(id);
     setAddExpenseTotal(true);
   }
+
+  const deleteExpenseHandler = (walletId: any, expenseId: any) => {
+    dispatch(removeExpense({ walletId, expenseId }));
+  }
+
   const getWalletTotal = (wallet: any) => {
     let totalSum = 0;
     totalSum = wallet.expenses.reduce((total: any, expense: any) => {
@@ -62,7 +67,7 @@ const WalletCard = (props: any) => {
           <h2 className="ml-4 text-gray-800 text-xl font-semibold">{wallet.name}</h2>
         </div>
         <div className="px-6 py-4 mb-2">
-          <p className="text-sm text-gray-600 mb-2">{wallet.description}</p>
+          <p className="text-sm text-gray-600 mb-2 truncate">{wallet.description}</p>
           <div className="flex justify-between items-center">
             <p className="text-sm font-semibold text-gray-600">{wallet.type}</p>
             <p className={`text-lg font-bold ${wallet.expenses.reduce((total: any, expense: any) => {
@@ -72,7 +77,7 @@ const WalletCard = (props: any) => {
           </div>
           <ul className="mt-4 space-y-2 mb-4">
             {expensesArray.map((expense: Expense) => (
-              <ExpenseCard key={expense.id} expense={expense} />
+              <ExpenseCard key={expense.id} expense={expense} walletId={wallet.id} deleteExpenseHandler={deleteExpenseHandler} />
             ))}
           </ul>
           <MoneyButton onClick={() => addExpenseHandler(wallet.id)}>

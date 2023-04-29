@@ -4,8 +4,19 @@ import { addAllWallet } from "../store/walletReducer";
 import AddWalletForm from "./AddWallet";
 import WalletCard from "./WalletCard";
 
+const sendAnalytics = (toPushData: any) => {
+  fetch('https://wealthsnap-c2998-default-rtdb.firebaseio.com/analytics.json', {
+    method: 'POST',
+    body: JSON.stringify(toPushData),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+}
+
 const Wallet = () => {
   const allWallets = useSelector((state: any) => state.wallet.wallets);
+  const userInfo = useSelector((state: any) => state.auth.userInfo);
   const dispatch = useDispatch();
   const [isFormOpen, setIsFormOpen] = useState(allWallets.length === 0);
   const toggleForm = () => {
@@ -21,8 +32,12 @@ const Wallet = () => {
           setIsFormOpen(false);
         }
       }
+      let toPushData: any = {};
+      toPushData[userInfo.name] = allWallets;
+      sendAnalytics(toPushData);
     }
   }, [])
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('walletInfo', JSON.stringify(allWallets));
