@@ -32,7 +32,7 @@ const Wallet = () => {
           setIsFormOpen(false);
         }
         let toPushData: any = {};
-        toPushData[userInfo.name] = allWallets;
+        toPushData[userInfo.name] = exisitingWallets;
         sendAnalytics(toPushData);
       }
     }
