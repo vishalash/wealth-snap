@@ -45,7 +45,7 @@ const Hero = () => {
               <span className="text-primary-500">{userDetail.isLogin ? userDetail.userInfo.name : 'You'}!</span>
             </>
           }
-          description="The easiest way to keep track of your net worth"
+          description="The easiest way to keep track of your net worth for free"
           button={
             <Link href="/dashboard">
               <span>

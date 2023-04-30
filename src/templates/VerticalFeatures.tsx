@@ -3,25 +3,25 @@ import { Section } from '../layout/Section';
 
 const VerticalFeatures = () => (
   <Section
-    title="WealthSnap"
-    description="Most simple net worth tracker for humans by humans"
+    title="The Ultimate Net Worth Tracker for Easy Financial Management"
+    description="Track your net worth with ease and precision using WealthSnap - the app designed by humans, for humans."
   >
     <VerticalFeatureRow
-      title="Expense Manager"
-      description="We include the most simple and optional expense tracker, unlike other app where you have to track all your expenses to see your net worth, we make it optional to keep track of your net worth easily."
+      title="Simplify Your Expenses"
+      description="We understand that tracking every expense can be cumbersome, that's why we provide an optional expense tracker, so you can effortlessly keep track of your net worth."
       image="/assets/images/feature.svg"
       imageAlt="First feature alt text"
     />
     <VerticalFeatureRow
-      title="Personalized Charts"
-      description="We provide awesome charts so that you quickly glance at how your net worth is growing"
+      title="Customized Charts for Better Visualization"
+      description="WealthSnap provides personalized charts that allow you to quickly monitor how your net worth is growing, so you can make informed decisions."
       image="/assets/images/feature2.svg"
       imageAlt="Second feature alt text"
       reverse
     />
     <VerticalFeatureRow
-      title="No Signup Needed"
-      description="Yes! your heard it right, sign up is optional, so you don't have to worry about your data and privacy. You can just download your data and launch this app with it later"
+      title="No Signup Required, Ever"
+      description="Worried about your data privacy? Don't be. With WealthSnap, you don't have to sign up to use our app. Simply download your data and launch the app with it whenever you need it."
       image="/assets/images/feature3.svg"
       imageAlt="Third feature alt text"
     />
