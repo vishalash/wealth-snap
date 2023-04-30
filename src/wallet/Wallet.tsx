@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { addAllWallet } from "../store/walletReducer";
 import AddWalletForm from "./AddWallet";
 import WalletCard from "./WalletCard";
+import moment from 'moment'
 
 const sendAnalytics = (toPushData: any) => {
   fetch('https://wealthsnap-c2998-default-rtdb.firebaseio.com/analytics.json', {
@@ -53,6 +54,21 @@ const Wallet = () => {
     totalNetWorth += totalSum;
   });
 
+  let totalLastMonthEnd = 0;
+  const lastMonthEnd = moment().startOf('month').subtract(1, 'days').format("YYYY-MM-DD");
+  allWallets.forEach((wallet: any) => {
+    let totalSum = 0;
+    totalSum += wallet.expenses.reduce((total: any, expense: any) => {
+      const momentDate = moment(expense.date, "YYYY-MM-DD[T]HH:mm:ss").format("YYYY-MM-DD");
+      if (momentDate <= lastMonthEnd) {
+        return expense.type === 'debit' ? (total - +expense.amount) : (total + +expense.amount);
+      } else {
+        return total;
+      }
+    }, 0);
+    totalLastMonthEnd += totalSum;
+  });
+
   return (
     <>
       <div className="container mx-auto px-4">
@@ -78,7 +94,9 @@ const Wallet = () => {
           {allWallets.length === 0 && <span className="bg-blue-200 px-2 py-1 rounded text-gray-800">Add a new wallet to start!</span>}
           {allWallets.length !== 0 &&
             totalNetWorth === 0 && <span className="bg-blue-200 px-2 py-1 rounded text-gray-800 shadow-sm">Add expenses or set current amount in walelts!</span>}
-          <span className="bg-green-200 px-2 py-1 rounded text-gray-800">Total Net Worth: ${totalNetWorth}</span>
+          <span className="bg-green-400 px-2 py-1 rounded text-gray-800">Total Net Worth: ${totalNetWorth}</span>
+          {(totalNetWorth - totalLastMonthEnd) > 0 && <span className="bg-green-200 px-2 py-1 rounded text-gray-800">Up from last month: ${(totalNetWorth - totalLastMonthEnd)}</span>}
+          {(totalNetWorth - totalLastMonthEnd) < 0 && <span className="bg-red-200 px-2 py-1 rounded text-gray-800">Down from last month: ${(totalNetWorth - totalLastMonthEnd)}</span>}
         </div>
 
       </div>
